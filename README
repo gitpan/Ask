@@ -1,0 +1,135 @@
+NAME
+    Ask - ask your users about stuff
+
+SYNOPSIS
+            use 5.010;
+            use Ask;
+        
+            my $ask = Ask->detect;
+        
+            if ($ask->question(text => "Are you happy?")
+            and $ask->question(text => "Do you know it?")
+            and $ask->question(text => "Really want to show it?")) {
+                    $ask->info(text => "Then clap your hands!");
+            }
+
+DESCRIPTION
+    The "Ask" suite is a set of modules for interacting with users;
+    prompting them for information, displaying messages, warnings and
+    errors, etc.
+
+    There are already countless CPAN modules for doing this sort of thing,
+    but what sets "Ask" apart from them is that "Ask" will detect how your
+    script is being run (in a terminal, headless, etc) and choose an
+    appropriate way to interact with the user.
+
+  Class Method
+    "Ask->detect(%arguments)"
+        A constructor, sort of. It inspects the program's environment and
+        returns an object that implements the Ask API (see below).
+
+        Note that these objects don't usually inherit from "Ask", so the
+        following will typically be false:
+
+                my $ask = Ask->detect(%arguments);
+                $ask->isa("Ask");
+
+        Instead, check:
+
+                my $ask = Ask->detect(%arguments);
+                $ask->DOES("Ask::API");
+
+  The Ask API
+    Objects returned by the "detect" method implement the Ask API. This
+    section documents that API.
+
+    The following methods are provided by objects implementing the Ask API.
+    They are largely modeled on the interface for GNOME Zenity.
+
+    "info(text => $text, %arguments)"
+        Display a message to the user.
+
+        Setting the argument "no_wrap" to true can be used to *hint* that
+        line wrapping should be avoided.
+
+    "warning(text => $text, %arguments)"
+        Display a warning to the user.
+
+        Supports the same arguments as "info".
+
+    "error(text => $text, %arguments)"
+        Display an error message (not necessarily fatal) to the user.
+
+        Supports the same arguments as "info".
+
+    "entry(%arguments)"
+        Ask the user to enter some text. Returns that text.
+
+        The "text" argument is supported as a way of communicating what
+        you'd like them to enter. The "hide_text" argument can be set to
+        true to *hint* that the text entered should not be displayed on
+        screen (e.g. password input).
+
+    "question(text => $text, %arguments)"
+        Ask the user to answer a affirmative/negative question (i.e.
+        OK/cancel, yes/no) defaulting to affirmative. Returns boolean.
+
+        The "text" argument is the text of the question; the "ok_label"
+        argument can be used to set the label for the affirmative button;
+        the "cancel_label" argument for the negative button.
+
+    "file_selection(%arguments)"
+        Ask the user for a file name. Returns the file name. No checks are
+        made to ensure the file exists.
+
+        The "multiple" argument can be used to indicate that multiple files
+        may be selected (they are returned as a list); the "directory"
+        argument can be used to *hint* that you want a directory.
+
+    If you wish to create your own implementation of the Ask API, please
+    read Ask::API for more information.
+
+  Extending Ask
+    Implementing Ask::API allows you to extend Ask to other environments.
+
+    To add extra methods to the Ask API you may use Moo roles:
+
+            {
+                    package AskX::Method::Password;
+                    use Moo::Role;
+                    sub password {
+                            my ($self, %o) = @_;
+                            $o{hide_text} //= 1;
+                            $o{text}      //= "please enter your password";
+                            $self->entry(%o);
+                    }
+            }
+
+            my $ask = Ask->detect(traits => ['AskX::Method::Password']);
+            say "GOT: ", $ask->password;
+
+BUGS
+    Please report any bugs to
+    <http://rt.cpan.org/Dist/Display.html?Queue=Ask>.
+
+SEE ALSO
+    See Ask::API for documentation of API internals.
+
+    Bundled API implementations are Ask::STDIO and Ask::Zenity.
+
+    Similar modules: IO::Prompt, IO::Prompt::Tiny and many others.
+
+AUTHOR
+    Toby Inkster <tobyink@cpan.org>.
+
+COPYRIGHT AND LICENCE
+    This software is copyright (c) 2012 by Toby Inkster.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
+DISCLAIMER OF WARRANTIES
+    THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
+    WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
+    MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
