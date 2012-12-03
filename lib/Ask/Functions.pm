@@ -3,28 +3,31 @@ use strict;
 use warnings;
 
 {
-	package Ask::Callback;
+	package Ask::Functions;
 	
 	our $AUTHORITY = 'cpan:TOBYINK';
 	our $VERSION   = '0.001';
 	
-	use Moo;
-	use namespace::sweep;
+	our $ASK;
 	
-	with 'Ask::API';
-	
-	has input_callback  => (is => 'ro', required => 1);
-	has output_callback => (is => 'ro', required => 1);
-	
-	sub entry {
-		my ($self) = @_;
-		return $self->input_callback->();
+	sub _called {
+		$ASK //= do { require Ask; Ask->detect };
+		
+		my $method = shift;
+		unshift @_, 'text' if @_ % 2;
+		return $ASK->$method(@_);
 	}
 
-	sub info {
-		my ($self, %o) = @_;
-		return $self->output_callback->($o{text});
+	my @F;
+	BEGIN {
+		@F = qw(info warning error entry question file_selection);
+		
+		eval qq{
+			sub $_ { unshift \@_, $_; goto \\&_called };
+		} for @F;
 	}
+
+	use Sub::Exporter::Progressive -setup => { exports => \@F };
 }
 
 1;
@@ -33,23 +36,16 @@ __END__
 
 =head1 NAME
 
-Ask::Callback - interact with yourself via callbacks
+Ask::Functions - guts behind Ask's exported functions
 
 =head1 SYNOPSIS
 
-	my $ask = Ask::Callback->new(
-		input_callback   => sub { ... },
-		output_callback  => sub { ... },
-	);
+	use Ask 'question';
 
 =head1 DESCRIPTION
 
-Primarily for the test suite.
-
-The input_callback is expected to return text which we pretend "the user
-typed in".
-
-The output_callback is passed text which we pretend to "show the user".
+This module implements the exported functions for Ask. It is kept separate
+to avoid the functions polluting the namespace of the C<Ask> package.
 
 =head1 BUGS
 

@@ -6,6 +6,14 @@ Home page:    <https://metacpan.org/release/Ask>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Ask>
 Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
 
+0.001  2012-12-03  # Initial release
+
+ - (Addition) Allow functions to be exported via
+   Sub::Exporter::Progressive.
+ - (Addition) Respect PERL_ASK_BACKEND environment variable.
+ - (Documentation) Document Ask::Callback.
+ - (Documentation) Document Ask::Tk.
+
 0.000_02  2012-12-03  # Developer preview II
 
  - (Addition) Ask::Tk

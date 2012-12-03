@@ -104,9 +104,35 @@ DESCRIPTION
                             $self->entry(%o);
                     }
             }
-
+        
             my $ask = Ask->detect(traits => ['AskX::Method::Password']);
             say "GOT: ", $ask->password;
+
+  Export
+    You can optionally export the Ask methods as functions. The functions
+    behave differently from the object-oriented interface in one regard; if
+    called with one parameter, it's taken to be the "text" named argument.
+
+            use Ask qw( question info );
+        
+            if (question("Are you happy?")
+            and question("Do you know it?")
+            and question("Really want to show it?")) {
+                    info("Then clap your hands!");
+            }
+
+    Ask uses Sub::Exporter::Progressive, so exported functions may be
+    renamed:
+
+            use Ask
+                    question => { -as => 'interrogate' },
+                    info     => { -as => 'notify' },
+            ;
+
+ENVIRONMENT
+    The "PERL_ASK_BACKEND" environment variable can be used to influence the
+    outcome of "Ask->detect". Indeed, it trumps all other factors. If set,
+    it should be a full class name.
 
 BUGS
     Please report any bugs to
@@ -115,7 +141,7 @@ BUGS
 SEE ALSO
     See Ask::API for documentation of API internals.
 
-    Bundled API implementations are Ask::STDIO and Ask::Zenity.
+    Bundled API implementations are Ask::STDIO, Ask::Zenity and Ask::Tk.
 
     Similar modules: IO::Prompt, IO::Prompt::Tiny and many others.
 

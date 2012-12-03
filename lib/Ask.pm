@@ -6,13 +6,22 @@ use warnings;
 	package Ask;
 	
 	our $AUTHORITY = 'cpan:TOBYINK';
-	our $VERSION   = '0.000_02';
+	our $VERSION   = '0.001';
 	
 	use Carp qw(croak);
 	use File::Which qw(which);
 	use Moo::Role qw();
 	use Module::Runtime qw(use_module use_package_optimistically);
 	use namespace::sweep 0.006;
+	
+	sub import {
+		shift;
+		if (@_) {
+			require Ask::Functions;
+			unshift @_, 'Ask::Functions';
+			goto \&Ask::Functions::import;
+		}
+	}
 	
 	sub detect {
 		my $class  = shift;
@@ -44,6 +53,10 @@ use warnings;
 	sub _detect_class {
 		my ($class, $args) = @_;
 		
+		if (exists $ENV{PERL_ASK_BACKEND}) {
+			return use_package_optimistically($ENV{PERL_ASK_BACKEND});
+		}
+		
 		if (exists $args->{class}) {
 			return use_package_optimistically(delete $args->{class});
 		}
@@ -51,11 +64,11 @@ use warnings;
 		if (-t STDIN and -t STDOUT) {
 			return use_module("Ask::STDIO");
 		}
-
+		
 		if (eval { require Ask::Tk }) {
 			return 'Ask::Tk';
 		}
-
+		
 		if (my $zenity = which('zenity')) {
 			$args->{zenity} //= $zenity;
 			return use_module("Ask::Zenity");
@@ -194,9 +207,36 @@ To add extra methods to the Ask API you may use Moo roles:
 			$self->entry(%o);
 		}
 	}
-
+	
 	my $ask = Ask->detect(traits => ['AskX::Method::Password']);
 	say "GOT: ", $ask->password;
+
+=head2 Export
+
+You can optionally export the Ask methods as functions. The functions behave
+differently from the object-oriented interface in one regard; if called with
+one parameter, it's taken to be the "text" named argument.
+
+	use Ask qw( question info );
+	
+	if (question("Are you happy?")
+	and question("Do you know it?")
+	and question("Really want to show it?")) {
+		info("Then clap your hands!");
+	}
+
+Ask uses L<Sub::Exporter::Progressive>, so exported functions may be renamed:
+
+	use Ask
+		question => { -as => 'interrogate' },
+		info     => { -as => 'notify' },
+	;
+
+=head1 ENVIRONMENT
+
+The C<PERL_ASK_BACKEND> environment variable can be used to influence the
+outcome of C<< Ask->detect >>. Indeed, it trumps all other factors. If set,
+it should be a full class name.
 
 =head1 BUGS
 
@@ -207,7 +247,7 @@ L<http://rt.cpan.org/Dist/Display.html?Queue=Ask>.
 
 See L<Ask::API> for documentation of API internals.
 
-Bundled API implementations are L<Ask::STDIO> and L<Ask::Zenity>.
+Bundled API implementations are L<Ask::STDIO>, L<Ask::Zenity> and L<Ask::Tk>.
 
 Similar modules: L<IO::Prompt>, L<IO::Prompt::Tiny> and many others.
 
