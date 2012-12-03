@@ -6,7 +6,7 @@ use warnings;
 	package Ask;
 	
 	our $AUTHORITY = 'cpan:TOBYINK';
-	our $VERSION   = '0.000_01';
+	our $VERSION   = '0.000_02';
 	
 	use Carp qw(croak);
 	use File::Which qw(which);
@@ -51,7 +51,11 @@ use warnings;
 		if (-t STDIN and -t STDOUT) {
 			return use_module("Ask::STDIO");
 		}
-		
+
+		if (eval { require Ask::Tk }) {
+			return 'Ask::Tk';
+		}
+
 		if (my $zenity = which('zenity')) {
 			$args->{zenity} //= $zenity;
 			return use_module("Ask::Zenity");
