@@ -6,7 +6,7 @@ use warnings;
 	package Ask;
 	
 	our $AUTHORITY = 'cpan:TOBYINK';
-	our $VERSION   = '0.002';
+	our $VERSION   = '0.003';
 	
 	use Carp qw(croak);
 	use File::Which qw(which);
@@ -65,10 +65,14 @@ use warnings;
 			return use_module("Ask::STDIO");
 		}
 		
+		if (eval { require Ask::Gtk }) {
+			return 'Ask::Gtk';
+		}
+
 		if (eval { require Ask::Tk }) {
 			return 'Ask::Tk';
 		}
-		
+
 		if (my $zenity = which('zenity')) {
 			$args->{zenity} //= $zenity;
 			return use_module("Ask::Zenity");
@@ -257,7 +261,7 @@ Toby Inkster E<lt>tobyink@cpan.orgE<gt>.
 
 =head1 COPYRIGHT AND LICENCE
 
-This software is copyright (c) 2012 by Toby Inkster.
+This software is copyright (c) 2012-2013 by Toby Inkster.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

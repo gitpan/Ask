@@ -27,6 +27,7 @@ lib/Ask.pm
 lib/Ask/API.pm
 lib/Ask/Callback.pm
 lib/Ask/Functions.pm
+lib/Ask/Gtk.pm
 lib/Ask/STDIO.pm
 lib/Ask/Tk.pm
 lib/Ask/Zenity.pm
