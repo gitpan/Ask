@@ -1,2 +1,9 @@
+New Backends
+============
 Ask::Win32 - a native Win32 thing. Perhaps write a zenity-like command-line tool and wrap that?
-Ask::Wx - along same lines as Ask::Tk and Ask::Gtk
+
+
+Backend Improvements
+====================
+Ask::STDIO - better file selection method
+Ask::Wx - support multi file selection

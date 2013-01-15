@@ -1,6 +1,7 @@
 Changes
 COPYRIGHT
 examples/extending.pl
+examples/multiple-choice.pl
 examples/synopsis.pl
 HACKING
 inc/Module/AutoInstall.pm
@@ -30,6 +31,7 @@ lib/Ask/Functions.pm
 lib/Ask/Gtk.pm
 lib/Ask/STDIO.pm
 lib/Ask/Tk.pm
+lib/Ask/Wx.pm
 lib/Ask/Zenity.pm
 LICENSE
 Makefile.PL

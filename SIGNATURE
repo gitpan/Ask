@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.68.
+signed via the Module::Signature module, version 0.70.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -14,16 +14,17 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 c4fa8521fb9d302e9be9d2950cbd9572ac8e5f00 COPYRIGHT
-SHA1 2c17e8c244b90df7ead5233e9945ab418d77368b Changes
+SHA1 8cbfd0b9b4038bf16f101410eeb37f1e18dd8ba0 COPYRIGHT
+SHA1 f86ffe1c15ecb1bec4ca0fa7556b42d8debe8bad Changes
 SHA1 58e47fed556f626572681c48158a3ecd44ce179d HACKING
 SHA1 937d452c5c4069f4cda9ffaf45a33f1eb5f060e8 LICENSE
-SHA1 3ff09d447f6487f76c2b4a88552d8dfdbe437ae4 MANIFEST
-SHA1 07beedb8d1163746cc3cdeb132c782b357df964e META.yml
+SHA1 34fc40fa92681241fcd76e8efa47307f34c45867 MANIFEST
+SHA1 b997f10c82308bed52c2f2528bfcc4aff57c7e54 META.yml
 SHA1 b9d5dd0b476253d37384aed42664179605286153 Makefile.PL
-SHA1 6205a440aab6677faa1c1a36073b51d51f248706 README
-SHA1 e417ba002b7b57667bae923df73b2122925208df TODO
+SHA1 60a0d2e770640dfd3394271798e2490f2bd1f7a8 README
+SHA1 19c8919f812dfe0f5a90711100277c88dba875fa TODO
 SHA1 3a0ae2789a1f3c2829b02ca924eeaa26e586f1aa examples/extending.pl
+SHA1 e2268b9ab153b5777707ca963e5d54f37aef8746 examples/multiple-choice.pl
 SHA1 2b6d1151493db3e2762cde3fa1e9627c41c73db9 examples/synopsis.pl
 SHA1 06c410f05488c1612ed66b06d3a86b2580581e4a inc/Module/AutoInstall.pm
 SHA1 8a924add836b60fb23b25c8506d45945e02f42f4 inc/Module/Install.pm
@@ -45,25 +46,26 @@ SHA1 0e0eed2e69d9583081868cf4f220068d0a018568 inc/Scalar/Util.pm
 SHA1 feb933cefe2e3762e8322bd6071a2499f3440da1 inc/YAML/Tiny.pm
 SHA1 8105c0510a773b56840995fb4dd2dc64fe9ddaee inc/unicore/Name.pm
 SHA1 36df501c7c9b73c282c5174ed54d8283b2f2cbf2 inc/utf8.pm
-SHA1 1284f8f84ad209e09712602caa3f126554a4ac0a lib/Ask.pm
-SHA1 0d188c8d74eebdf4a1b64079c615f5a535120a96 lib/Ask/API.pm
-SHA1 82cd82da841c4d5c144bf6ade461c4463ba8a97e lib/Ask/Callback.pm
-SHA1 9762a38dffa6d53c3cd21b225d1d410573690426 lib/Ask/Functions.pm
-SHA1 17b04afcca9a135417db6362230a11447f5d68a1 lib/Ask/Gtk.pm
-SHA1 72fe5e9598a59ec09e19c278fcadf7b413436680 lib/Ask/STDIO.pm
-SHA1 189748feb4203125481a7d496954c039d8f45ea7 lib/Ask/Tk.pm
-SHA1 6f1cd30ffbded700d3b0e43343aba0bff01fb9b5 lib/Ask/Zenity.pm
-SHA1 68bfd0844b276ee96295355df8333b7fc2696a24 meta/changes.pret
+SHA1 36d5bbdd1a8ff3e25a9de267721f96c7f1bd9423 lib/Ask.pm
+SHA1 222021b349a20b6e75129e864756a76948ec393f lib/Ask/API.pm
+SHA1 30537b25234efbbb3b28c732be34db2cb9f2479b lib/Ask/Callback.pm
+SHA1 e1ec8173b0fce2c4648ca809492b096ae3c1051a lib/Ask/Functions.pm
+SHA1 c10aad3cdef34e2c064868b4bc7ef7e3b120f3df lib/Ask/Gtk.pm
+SHA1 2b973abc601fd9fd8635964ba5a0cd6310843bfd lib/Ask/STDIO.pm
+SHA1 c355c7c3dccc6d5481c16df9876d316e0b4fa3d0 lib/Ask/Tk.pm
+SHA1 87be488eda4eb4a4f74f994c99a76530013f1015 lib/Ask/Wx.pm
+SHA1 3b1fd0336ca55a758eb254380de0ada539c5849c lib/Ask/Zenity.pm
+SHA1 868d161eb8a7d3781a2a0b593dc95b7e6b2e425c meta/changes.pret
 SHA1 05f0c5e2cd22bc98ff515f2cc9cd555c8a278e73 meta/doap.pret
-SHA1 5dd878dbd6ba4da9aa3ecd9c556b966a42823746 meta/makefile.pret
+SHA1 3f65c7d1dbdf88fa40cac97ddedb3a283612331d meta/makefile.pret
 SHA1 a151cff74b5f29c00381a14d4ec8726e3763b6b2 meta/people.pret
 SHA1 51271dc551037b488c63b1018629425494f257db t/01basic.t
 SHA1 d4b5d68eaa93651371970b6560d757dc45b3c45a t/02callbacks.t
 SHA1 fb3b2640947f4b6ffdbd0d87c613082df5bd8c4f t/03extending.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.10 (GNU/Linux)
+Version: GnuPG v1.4.11 (GNU/Linux)
 
-iEYEARECAAYFAlDzKj4ACgkQzr+BKGoqfTnq5wCgscMzNBzv3glIYseRtQRhUXNj
-IiQAoJbnoylnw3GSpLvRCkGBDs2OAXT5
-=P5br
+iEYEARECAAYFAlD15ggACgkQzr+BKGoqfTlPuACfc0cg7RgLZ/cqWhaz/zlfSeqJ
+1OIAn2pkyqOxDguv6FcrAJvSE7Yzr5p5
+=zx+l
 -----END PGP SIGNATURE-----
