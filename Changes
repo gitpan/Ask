@@ -6,6 +6,11 @@ Home page:    <https://metacpan.org/release/Ask>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=Ask>
 Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
 
+0.006  2013-01-16
+
+ - (Addition) XML address book example script.
+ - (Documentation) Corrections in Ask::Wx pod.
+
 0.005  2013-01-16
 
  - (Addition) Ask::Fallback backend, which kicks in if

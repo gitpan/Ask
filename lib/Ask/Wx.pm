@@ -6,7 +6,7 @@ use warnings;
 	package Ask::Wx;
 	
 	our $AUTHORITY = 'cpan:TOBYINK';
-	our $VERSION   = '0.005';
+	our $VERSION   = '0.006';
 
 	use Moo;
 	use Wx;
@@ -121,11 +121,11 @@ __END__
 
 =head1 NAME
 
-Ask::Gtk - interact with a user via a Gtk GUI
+Ask::Wx - interact with a user via a WxWidgets GUI
 
 =head1 SYNOPSIS
 
-	my $ask = Ask::Gtk->new;
+	my $ask = Ask::Wx->new;
 	
 	$ask->info(text => "I'm Charles Xavier");
 	if ($ask->question(text => "Would you like some breakfast?")) {

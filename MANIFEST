@@ -1,5 +1,6 @@
 Changes
 COPYRIGHT
+examples/address-book-app.pl
 examples/extending.pl
 examples/multiple-choice.pl
 examples/synopsis.pl
