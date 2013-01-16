@@ -70,13 +70,21 @@ DESCRIPTION
         true to *hint* that the text entered should not be displayed on
         screen (e.g. password input).
 
+        The "default" argument can be used to supply a default return value
+        if the user cannot be asked for some reason (e.g. running on an
+        unattended terminal).
+
     "question(text => $text, %arguments)"
-        Ask the user to answer a affirmative/negative question (i.e.
+        Ask the user to answer an affirmative/negative question (i.e.
         OK/cancel, yes/no) defaulting to affirmative. Returns boolean.
 
         The "text" argument is the text of the question; the "ok_label"
         argument can be used to set the label for the affirmative button;
         the "cancel_label" argument for the negative button.
+
+        The "default" argument can be used to supply a default return value
+        if the user cannot be asked for some reason (e.g. running on an
+        unattended terminal).
 
     "file_selection(%arguments)"
         Ask the user for a file name. Returns the file name. No checks are
@@ -85,6 +93,11 @@ DESCRIPTION
         The "multiple" argument can be used to indicate that multiple files
         may be selected (they are returned as a list); the "directory"
         argument can be used to *hint* that you want a directory.
+
+        The "default" argument can be used to supply a default return value
+        if the user cannot be asked for some reason (e.g. running on an
+        unattended terminal). If "multiple" is true, then this must be an
+        arrayref.
 
     "single_choice(text => $text, choices => \@choices)"
         Asks the user to select a single option from many choices.
@@ -102,6 +115,14 @@ DESCRIPTION
               ],
            );
 
+        The choices are "identifier => label" pairs. The identifiers are not
+        necessarily displayed to the user making the choice; the labels are.
+        The function returns the identifier for the chosen option.
+
+        The "default" argument can be used to supply a default return value
+        if the user cannot be asked for some reason (e.g. running on an
+        unattended terminal).
+
     "multiple_choice(text => $text, choices => \@choices)"
         Asks the user to select zero or more options from many choices.
 
@@ -115,6 +136,12 @@ DESCRIPTION
                  [ chocolate => 'Chocolate' ],
               ],
            );
+
+        Returns list of identifiers.
+
+        The "default" argument can be used to supply a default return value
+        if the user cannot be asked for some reason (e.g. running on an
+        unattended terminal). It must be an arrayref.
 
     If you wish to create your own implementation of the Ask API, please
     read Ask::API for more information.
@@ -164,6 +191,10 @@ ENVIRONMENT
     outcome of "Ask->detect". Indeed, it trumps all other factors. If set,
     it should be a full class name.
 
+    If either of the "AUTOMATED_TESTING" or "PERL_MM_USE_DEFAULT"
+    environment variables are set to true, the "Ask::Fallback" backend will
+    automatically be used.
+
 BUGS
     Please report any bugs to
     <http://rt.cpan.org/Dist/Display.html?Queue=Ask>.
@@ -171,7 +202,23 @@ BUGS
 SEE ALSO
     See Ask::API for documentation of API internals.
 
-    Bundled API implementations are Ask::STDIO, Ask::Zenity and Ask::Tk.
+    Bundled Ask API backends:
+
+    *   Ask::Callback - implementation for testing; redirects input and
+        output to callback functions.
+
+    *   Ask::Fallback - returns default answers; for scripts running
+        unattended.
+
+    *   Ask::Gtk - GUI using Gtk2.
+
+    *   Ask::STDIO - based on STDIN/STDOUT/STDERR
+
+    *   Ask::Tk - GUI using Tk.
+
+    *   Ask::Wx - GUI using Wx.
+
+    *   Ask::Zenity - GUI using the "/usr/bin/zenity" binary (part of GNOME)
 
     Similar modules: IO::Prompt, IO::Prompt::Tiny and many others.
 

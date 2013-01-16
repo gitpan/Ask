@@ -27,6 +27,7 @@ inc/YAML/Tiny.pm
 lib/Ask.pm
 lib/Ask/API.pm
 lib/Ask/Callback.pm
+lib/Ask/Fallback.pm
 lib/Ask/Functions.pm
 lib/Ask/Gtk.pm
 lib/Ask/STDIO.pm

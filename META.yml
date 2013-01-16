@@ -40,4 +40,4 @@ resources:
   homepage: https://metacpan.org/release/Ask
   license: http://dev.perl.org/licenses/
   repository: https://bitbucket.org/tobyink/p5-ask
-version: 0.004
+version: 0.005
