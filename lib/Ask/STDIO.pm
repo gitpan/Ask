@@ -6,7 +6,7 @@ use warnings;
 	package Ask::STDIO;
 	
 	our $AUTHORITY = 'cpan:TOBYINK';
-	our $VERSION   = '0.006';
+	our $VERSION   = '0.007';
 	
 	use Moo;
 	use namespace::sweep;
@@ -28,10 +28,14 @@ use warnings;
 		my $line;
 		
 		if ($o{hide_text}) {
-			require Term::ReadKey;
-			Term::ReadKey::ReadMode('noecho');
+			require POSIX;
+			my $tio = POSIX::Termios->new;
+			$tio->getattr(0);
+			$tio->setlflag($tio->getlflag & ~POSIX::ECHO());
+			$tio->setattr(0);
 			chomp( $line = <STDIN> );
-			Term::ReadKey::ReadMode(0);
+			$tio->setlflag($tio->getlflag | POSIX::ECHO());
+			$tio->setattr(0);
 		}
 		else {
 			chomp( $line = <STDIN> );

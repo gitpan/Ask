@@ -52,6 +52,12 @@ DESCRIPTION
         Setting the argument "no_wrap" to true can be used to *hint* that
         line wrapping should be avoided.
 
+        The "lang" argument can be used to indicate the language of the
+        "text" as an ISO 639-1 code (e.g. "en" for English). Not all objects
+        implementing the Ask API will pay attention to this hint, so don't
+        be too surprised to see text in French with an English "OK" button
+        underneath!
+
     "warning(text => $text, %arguments)"
         Display a warning to the user.
 
@@ -74,6 +80,9 @@ DESCRIPTION
         if the user cannot be asked for some reason (e.g. running on an
         unattended terminal).
 
+        The "lang" argument can be used to indicate the language of the
+        "text" as an ISO 639-1 code (e.g. "en" for English).
+
     "question(text => $text, %arguments)"
         Ask the user to answer an affirmative/negative question (i.e.
         OK/cancel, yes/no) defaulting to affirmative. Returns boolean.
@@ -85,6 +94,9 @@ DESCRIPTION
         The "default" argument can be used to supply a default return value
         if the user cannot be asked for some reason (e.g. running on an
         unattended terminal).
+
+        The "lang" argument can be used to indicate the language of the
+        "text" as an ISO 639-1 code (e.g. "en" for English).
 
     "file_selection(%arguments)"
         Ask the user for a file name. Returns the file name. No checks are
@@ -123,6 +135,9 @@ DESCRIPTION
         if the user cannot be asked for some reason (e.g. running on an
         unattended terminal).
 
+        The "lang" argument can be used to indicate the language of the
+        "text" and labels as an ISO 639-1 code (e.g. "en" for English).
+
     "multiple_choice(text => $text, choices => \@choices)"
         Asks the user to select zero or more options from many choices.
 
@@ -142,6 +157,9 @@ DESCRIPTION
         The "default" argument can be used to supply a default return value
         if the user cannot be asked for some reason (e.g. running on an
         unattended terminal). It must be an arrayref.
+
+        The "lang" argument can be used to indicate the language of the
+        "text" and labels as an ISO 639-1 code (e.g. "en" for English).
 
     If you wish to create your own implementation of the Ask API, please
     read Ask::API for more information.
@@ -185,6 +203,13 @@ DESCRIPTION
           question => { -as => 'interrogate' },
           info     => { -as => 'notify' },
        ;
+
+  I18n
+    It is strongly recommended that you pass a "lang" argument with each
+    method call. Not all backends yet pay attention to it.
+
+    See also AskX::AutoLang as a way to avoid passing "lang => "fu"" to
+    every single method call!
 
 ENVIRONMENT
     The "PERL_ASK_BACKEND" environment variable can be used to influence the
